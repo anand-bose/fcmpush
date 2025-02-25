@@ -9,6 +9,7 @@ const val ARG_TITLE = "${ARG_PREFIX}title"
 const val ARG_BODY = "${ARG_PREFIX}body"
 const val ARG_IMAGE = "${ARG_PREFIX}image"
 const val ARG_DATA = "${ARG_PREFIX}data"
+const val ARG_PRINT_BEARER_TOKEN = "${ARG_PREFIX}print-auth-token"
 
 sealed interface AuthType
 @JvmInline
@@ -32,6 +33,7 @@ data class Arguments(
     val body: String,
     val image: String? = null,
     val data: Map<String, String>? = null,
+    val printBearerToken: Boolean = false,
 )
 
 fun parseArguments(args: Array<String>): Arguments {
@@ -45,6 +47,7 @@ fun parseArguments(args: Array<String>): Arguments {
     var body: String? = null
     var image: String? = null
     var data: String? = null
+    var printBearerToken = false
     var i = 0
     while (i < args.size) {
         when (val key = args[i]) {
@@ -88,6 +91,9 @@ fun parseArguments(args: Array<String>): Arguments {
                 i += 1
                 data = args[i]
             }
+            ARG_PRINT_BEARER_TOKEN -> {
+                printBearerToken = true
+            }
             else -> error("Unsupported argument: $key")
         }
         i++
@@ -108,6 +114,7 @@ fun parseArguments(args: Array<String>): Arguments {
         title = title ?: error("Please provide the notification title with $ARG_TITLE flag"),
         body = body ?: error("Please provide the notification body with $ARG_BODY flag"),
         image = image,
+        printBearerToken = printBearerToken,
         data = data?.let {
             DefaultJson.decodeFromString(it)
         }

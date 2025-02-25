@@ -15,6 +15,10 @@ suspend fun main(args: Array<String>) {
             val result = authenticateWithServiceAccount(arguments.authType.serviceAccountPath)
             token = result.accessToken
             projectId = result.projectId
+            println("Project ID = $projectId")
+            if (arguments.printBearerToken) {
+                println("Bearer token = $token")
+            }
         }
     }
     val url = URLBuilder("https://fcm.googleapis.com/v1/projects/")
