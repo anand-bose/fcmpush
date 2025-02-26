@@ -18,7 +18,9 @@ dependencies {
     implementation(libs.ktor.client.java)
     implementation(libs.ktor.client.contentNegotiation)
     implementation(libs.ktor.client.contentNegotiation.json)
-    implementation(libs.google.auth.credentials)
+    implementation(libs.google.auth.library)
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.nop)
     testImplementation(libs.kotlin.test)
 }
 

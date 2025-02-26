@@ -12,6 +12,7 @@ data class ProjectId(
 data class ServiceAccountAuthResult(
     val projectId: String,
     val accessToken: String,
+    val expiry: Long,
 )
 
 fun getAuthToken(authType: AuthType): String {
@@ -53,6 +54,7 @@ fun authenticateWithServiceAccount(serviceAccountPath: String): ServiceAccountAu
         ServiceAccountAuthResult(
             projectId = projectId.projectId,
             accessToken = token.tokenValue,
+            expiry = token.expirationTime.time
         )
     }
 }

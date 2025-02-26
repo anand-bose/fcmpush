@@ -1,6 +1,12 @@
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.TimeZone
 
 suspend fun main(args: Array<String>) {
     val arguments = parseArguments(args)
@@ -15,9 +21,19 @@ suspend fun main(args: Array<String>) {
             val result = authenticateWithServiceAccount(arguments.authType.serviceAccountPath)
             token = result.accessToken
             projectId = result.projectId
-            println("Project ID = $projectId")
+            println("Project ID: $projectId")
             if (arguments.printBearerToken) {
-                println("Bearer token = $token")
+                println("Bearer token: $token")
+                val expiryTimeFormatted = LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(result.expiry),
+                    ZoneId.systemDefault(),
+                ).format(
+                    DateTimeFormatter.ofLocalizedDateTime(
+                        FormatStyle.FULL,
+                        FormatStyle.FULL,
+                    ).withZone(ZoneId.systemDefault())
+                )
+                println("Expires on: $expiryTimeFormatted")
             }
         }
     }
