@@ -7,14 +7,15 @@ It supports authentication with service account JSON file, or if you have alread
 bearer token and project ID, you can use them too.
 
 ## Requirements
-* Java 21 (preferred) or higher
+* JDK 21 (preferred) or higher
 * Intellij IDEA CE (optional)
 
 ## Installation
 
 > This section is WIP. I am working on a convenience script that makes the installation process easier for you.
 
-If you wish to use this tool, you can check out the source code, and run the gradle task to get the build.
+The current installation method is building from the source code. You need to install Oracle JDK or any other
+vendor such as Eclipse Temurin.
 
 ```shell
 git clone git@github.com:anand-bose/fcmpush.git
@@ -22,8 +23,21 @@ cd fcmpush
 ./gradlew :installDist
 export PATH=$PATH:$PWD/build/install/fcmpush/bin
 ```
-Now you can invoke the `fcmpush` tool directly within the Terminal window.
+Now you can invoke the `fcmpush` tool directly within the Terminal window, until you close it. To persist `fcmpush`
+command in your shell, please update the `PATH` variable your shell's profile.
 
+| Shell                                            | Profile         |
+|--------------------------------------------------|-----------------|
+| zsh (Default for macOS, some Linux disributions) | ~/.zprofile     |
+| bash (Most Linux distributions)                  | ~/.bash_profile |
+
+Create the profile file if it does not exist. If it exists, do not change the contents of the file, just append the
+following line to the end of the file.
+
+```shell
+PATH=$PATH:/Users/anandbose/Developer/fcmpush/build/install/fcmpush/bin
+```
+*Note: Replace `/Users/anandbose/Developer/fcmpush` with absolute path of the project directory in your system.*
 ## Example use cases
 
 ### 1. Send push notification to a device, using service account credentials
