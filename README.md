@@ -35,9 +35,11 @@ Create the profile file if it does not exist. If it exists, do not change the co
 following line to the end of the file.
 
 ```shell
-PATH=$PATH:/Users/anandbose/Developer/fcmpush/build/install/fcmpush/bin
+# NOTE: Replace the path /Users/anandbose/fcmpush with
+# absolute path of the project directory in your system.
+PATH=$PATH:/Users/anandbose/fcmpush/build/install/fcmpush/bin
 ```
-*Note: Replace `/Users/anandbose/Developer/fcmpush` with absolute path of the project directory in your system.*
+
 ## Example use cases
 
 ### 1. Send push notification to a device, using service account credentials
